@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="AuthAPI.UnitTest/AuthAPI.UnitTest.csproj" />
+  <Project Path="AuthAPI/AuthAPI.csproj" />
+</Solution>
