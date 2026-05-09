@@ -14,9 +14,8 @@ var logger = LogManager.Setup().LoadConfigurationFromAppSettings()
 
 logger.Debug("Starting AuthService");
 
-// TODO Change endpoint
-/*
-var EndPoint = "https://localhost:8201/";
+// Endpoint til vault, vault og Service skal være på samme docker netværk, så 'localhost' bliver til 'vault' i endpoint
+var EndPoint = "https://vault:8201/";
 logger.Debug("Connecting to Hashicorp Vault on: {0}", EndPoint);
 var httpClientHandler = new HttpClientHandler();
 httpClientHandler.ServerCertificateCustomValidationCallback =
@@ -52,7 +51,7 @@ catch (Exception e)
     logger.Error($"{e.InnerException.Message}");
     Console.WriteLine("Noget gik galt: " + e.InnerException.Message);
 }
-*/
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -63,9 +62,6 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddSingleton<ITokenProvider, TokenProvider>();
 
-// TODO remove test secret
-Environment.SetEnvironmentVariable("JWT_SECRET", "lakjdfASDFE464&€%€%€&#k3k€#&k34K€36k))(#€i");
-
 builder.Services.AddAuthorization();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(o =>
@@ -73,7 +69,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         o.RequireHttpsMetadata = false;
         o.TokenValidationParameters = new TokenValidationParameters()
         {
-            // TODO change to value from VAULT
             IssuerSigningKey =
                 new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_SECRET"))),
             ValidIssuer = builder.Configuration["Jwt:Issuer"],

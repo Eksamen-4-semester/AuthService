@@ -20,7 +20,7 @@ public sealed class AuthControllerTests
     [TestInitialize]
     public void Setup()
     {
-        // Should mirror appsettings.json in 'ChatAppAPI'
+        // Should mirror appsettings.json in 'AuthAPI'
         var configRoot = new ConfigurationBuilder()
             .AddInMemoryCollection(new Dictionary<string, string?>
             {
