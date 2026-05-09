@@ -50,7 +50,7 @@ try
 catch (Exception e)
 {
     logger.Error($"{e.InnerException.Message}");
-    Console.WriteLine("Noget gik galt: " + e.InnerException.Message);
+    Console.WriteLine("Something went wrong connecting to Vault: " + e.InnerException.Message);
 }
 
 var builder = WebApplication.CreateBuilder(args);
