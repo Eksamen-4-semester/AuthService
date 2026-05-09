@@ -16,7 +16,7 @@ var logger = LogManager.Setup().LoadConfigurationFromAppSettings()
 logger.Debug("Starting AuthService");
 
 // Endpoint til vault, vault og Service skal være på samme docker netværk, så 'localhost' bliver til 'vault' i endpoint
-var EndPoint = "https://vault:8201/";
+var EndPoint = Environment.GetEnvironmentVariable("VAULT_URL") ?? "https://localhost:8201/";
 logger.Debug("Connecting to Hashicorp Vault on: {0}", EndPoint);
 var httpClientHandler = new HttpClientHandler();
 httpClientHandler.ServerCertificateCustomValidationCallback =

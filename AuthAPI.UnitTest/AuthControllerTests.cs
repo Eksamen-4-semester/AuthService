@@ -46,7 +46,6 @@ public sealed class AuthControllerTests
         {
             MemberId = 1,
             FullName = "John Doe",
-            MemberSubscriptionId = 3
         };
 
         // Act
@@ -69,7 +68,6 @@ public sealed class AuthControllerTests
         MemberDto dto = new MemberDto()
         {
             MemberId = 1,
-            MemberSubscriptionId = 3
         };
 
         // Act
@@ -92,7 +90,6 @@ public sealed class AuthControllerTests
         {
             MemberId = 1,
             FullName = "John Doe",
-            MemberSubscriptionId = 3
         };
 
         // Act

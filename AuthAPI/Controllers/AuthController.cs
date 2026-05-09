@@ -24,7 +24,7 @@ public class AuthController : ControllerBase
     [Route("member")]
     public IActionResult AuthorizeMember([FromBody]MemberDto member)
     {
-        if (member.MemberId <= 0 || member.MemberSubscriptionId <= 0 || string.IsNullOrWhiteSpace(member.FullName))
+        if (member.MemberId <= 0 || string.IsNullOrWhiteSpace(member.FullName))
         {
             return BadRequest("MemberId and MemberSubscriptionId cannot be less than 1");
         }

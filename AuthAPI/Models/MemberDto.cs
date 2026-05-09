@@ -9,6 +9,4 @@ public class MemberDto
     public int MemberId { get; set; }
     [Required]
     public string FullName { get; set; }
-    [Required]
-    public int MemberSubscriptionId { get; set; }
 }

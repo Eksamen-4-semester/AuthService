@@ -31,7 +31,6 @@ public class TokenProvider : ITokenProvider
             [
                 new Claim(JwtRegisteredClaimNames.Sub, member.MemberId.ToString()),
                 new Claim(JwtRegisteredClaimNames.Name, member.FullName),
-                new Claim(JwtRegisteredClaimNames.Typ, member.MemberSubscriptionId.ToString())
             ]),
             Expires = DateTime.UtcNow.AddMinutes(configuration.GetValue<int>("Jwt:ExpirationInMinutes")),
             SigningCredentials =  credentials,
