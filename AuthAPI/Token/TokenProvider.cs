@@ -12,6 +12,9 @@ namespace AuthAPI.Token;
 public class TokenProvider : ITokenProvider
 {
     private readonly IConfiguration configuration;
+    private readonly string memberRole = "Member";
+    private readonly string personalTrainerRole = "Trainer";
+    private readonly string adminRole = "Admin";
     
     public TokenProvider(IConfiguration configuration)
     {
@@ -24,13 +27,14 @@ public class TokenProvider : ITokenProvider
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
         
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-
+        
         var tokenDescription = new SecurityTokenDescriptor()
         {
             Subject = new ClaimsIdentity(
             [
                 new Claim(JwtRegisteredClaimNames.Sub, member.MemberId.ToString()),
                 new Claim(JwtRegisteredClaimNames.Name, member.FullName),
+                new Claim(ClaimTypes.Role, memberRole)
             ]),
             Expires = DateTime.UtcNow.AddMinutes(configuration.GetValue<int>("Jwt:ExpirationInMinutes")),
             SigningCredentials =  credentials,
@@ -57,7 +61,8 @@ public class TokenProvider : ITokenProvider
             Subject = new ClaimsIdentity(
             [
                 new Claim(JwtRegisteredClaimNames.Sub, trainer.TrainerId.ToString()),
-                new Claim(JwtRegisteredClaimNames.Name, trainer.Name)
+                new Claim(JwtRegisteredClaimNames.Name, trainer.Name),
+                new Claim(ClaimTypes.Role, personalTrainerRole)
             ]),
             Expires = DateTime.UtcNow.AddMinutes(configuration.GetValue<int>("Jwt:ExpirationInMinutes")),
             SigningCredentials =  credentials,
@@ -84,7 +89,8 @@ public class TokenProvider : ITokenProvider
             Subject = new ClaimsIdentity(
             [
                 new Claim(JwtRegisteredClaimNames.Sub, admin.AdminId.ToString()),
-                new Claim(JwtRegisteredClaimNames.PreferredUsername, admin.Username)
+                new Claim(JwtRegisteredClaimNames.PreferredUsername, admin.Username),
+                new Claim(ClaimTypes.Role, adminRole)
             ]),
             Expires = DateTime.UtcNow.AddMinutes(configuration.GetValue<int>("Jwt:ExpirationInMinutes")),
             SigningCredentials =  credentials,
