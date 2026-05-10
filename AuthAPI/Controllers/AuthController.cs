@@ -72,11 +72,11 @@ public class AuthController : ControllerBase
         {
             return BadRequest("AdminId cannot be less than 1");
         }
-        _logger.LogInformation($"Calling {nameof(AuthorizePersonalTrainer)} endpoint for Admin with id: {admin.AdminId}");
+        _logger.LogInformation($"Calling {nameof(AuthorizeAdmin)} endpoint for Admin with id: {admin.AdminId}");
         var tokenString = _tokenProvider.CreateAdminToken(admin);
         if (string.IsNullOrWhiteSpace(tokenString))
         {
-            _logger.LogError($"{nameof(AuthorizePersonalTrainer)} returned empty string");
+            _logger.LogError($"{nameof(AuthorizeAdmin)} returned empty string");
             return Unauthorized();
         }
         _logger.LogInformation($"Returning JWT token for Admin with id: {admin.AdminId}");
