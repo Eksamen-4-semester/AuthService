@@ -3,6 +3,7 @@ using AuthAPI.Models;
 using AuthAPI.Token;
 using Microsoft.AspNetCore.Mvc;
 
+namespace AuthAPI.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
